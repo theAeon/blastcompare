@@ -11,7 +11,6 @@ from subprocess import run
 #from typing import Literal, Tuple
 #from types import new_class
 from Bio import AlignIO, SeqIO, SeqUtils
-term_size = get_terminal_size()
 #AminoAcid = Literal["A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y", "-"]
 #Clustal = Literal['','.',':','*']
 #SeqClass=new_class(SeqRecord)
@@ -23,7 +22,7 @@ def format_print(input1: dict, input2: dict, header1: str, header2: str, modestr
     pprint(input1)
     print(header2)
     pprint(input2)
-    print(u'\u2500' * term_size.columns)
+    print(u'\u2500' * term_size)
 
 def transform(p_list, pos: int) -> dict:
     test_a=Counter(list(list(zip(*p_list))[pos]))
@@ -43,8 +42,13 @@ subcommand.add_argument("--compare-combined", action="store_true", help="compare
 subcommand.add_argument("--compare-protein", action="store", type=int, help="index of protein to compare", metavar='i', nargs="?")
 parser.add_argument("in_species", action="extend", nargs="+", help="species base used as input for getPairs.sh")
 parser.add_argument("-a, --all", action="store_true", dest="all")
+parser.add_argument("-p, --pipe", action="store_true", dest="pipe")
 parsed = parser.parse_args()
-
+if not parsed.pipe:
+    term_sized = get_terminal_size()
+    term_size = term_sized.columns
+else: 
+    term_size= 80
 
 class SpeciesCompare():
     def __init__(self,base: str) -> None:
