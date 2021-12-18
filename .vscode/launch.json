@@ -11,7 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "cwd": "${workspaceFolder}/output",
-            "args": ["chickenvfrog", "chickenvfish"]
+            "args": ["--compare-protein", "5", "-a", "chickenvfish"]
         },
         {
             "type": "bashdb",

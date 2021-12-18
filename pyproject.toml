@@ -14,8 +14,11 @@ license = {text = "Apache-2.0"}
 [project.urls]
 homepage = ""
 
+[project.optional-dependencies]
 [tool]
 [tool.pdm]
+[tool.pdm.dev-dependencies]
+test = []
 
 [build-system]
 requires = ["pdm-pep517"]

@@ -15,7 +15,7 @@ summary = "NumPy is the fundamental package for array computing with Python."
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:c0f18df3539c080f5dc71c5d0227ccf545cb695f5caa4c55919e23badd0ff8e1"
+content_hash = "sha256:48a7157add82a105ba7931a01150340c16b51400c93bb9f3ce889b18b54bd81f"
 
 [metadata.files]
 "biopython 1.79" = [

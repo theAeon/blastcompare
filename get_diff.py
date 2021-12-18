@@ -40,7 +40,7 @@ description="a script that takes paired fasta sequences from two species and ret
                         )
 subcommand = parser.add_mutually_exclusive_group(required=True)
 subcommand.add_argument("--compare-combined", action="store_true", help="compare all proteins")
-subcommand.add_argument("--compare-protein", action="store", type=int, help="index of protein to compare", metavar='i')
+subcommand.add_argument("--compare-protein", action="store", type=int, help="index of protein to compare", metavar='i', nargs="?")
 parser.add_argument("in_species", action="extend", nargs="+", help="species base used as input for getPairs.sh")
 parser.add_argument("-a, --all", action="store_true", dest="all")
 parsed = parser.parse_args()
@@ -78,18 +78,19 @@ if parsed.compare_protein:
     REMAINING = 0
     parseList = []
     if parsed.all:
-        REMAINING = len(local.seqidlist)
-        while REMAINING >=1:
-            parseList.append(local.getpairlist(REMAINING-1))
+        REMAINING = len(local.seqidlist) - 1
+        while REMAINING >1:
+            parseList.append(local.getpairlist(REMAINING))
             REMAINING -= 1
     else:
         parseList.append(local.getpairlist(parsed.compare_protein-1))
     for parse in parseList:
-        transA=transform(parse, 2)
-        transB=transform(parse, 3)
-        headA=parse[4][4]
-        headB=parse[4][5]
-        format_print(transA, transB, headA, headB, "")
+        if parse != []:
+            transA=transform(parse, 2)
+            transB=transform(parse, 3)
+            headA=parse[0][4]
+            headB=parse[0][5]
+            format_print(transA, transB, headA, headB, "")
 
         
 
