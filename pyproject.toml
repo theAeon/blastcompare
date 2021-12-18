@@ -1,0 +1,22 @@
+[project]
+name = "blastcompare"
+version = "0.0.1-pre"
+description = "comparing amino acids between pre-aligned seqenes"
+authors = [
+    {name = "Andrew Robbins", email = "ard114@case.edu"},
+]
+dependencies = [
+    "biopython>=1.75",
+]
+requires-python = ">=3.8"
+license = {text = "Apache-2.0"}
+
+[project.urls]
+homepage = ""
+
+[tool]
+[tool.pdm]
+
+[build-system]
+requires = ["pdm-pep517"]
+build-backend = "pdm.pep517.api"

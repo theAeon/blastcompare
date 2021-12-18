@@ -1,6 +1,6 @@
 #!/bin/bash
-#export NCBI_API_KEY='<API KEY>'
-#export EMAIL=<email>
+source ncbi.env # NCBI_API_KEY
+export EMAIL=ard114@case.edu
 find ./ -maxdepth 1 -type f -exec awk '!seen[$1]++{if ($3 >= 85) print > "{}best"}' {} \;
 find ./*best -maxdepth 1 -type f -exec awk '{print $1 > "{}names"}' {} \;
 find ./*best -maxdepth 1 -type f -exec awk '{print $2 > "{}IDs"}' {} \;

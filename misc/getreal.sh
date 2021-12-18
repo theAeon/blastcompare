@@ -1,6 +1,5 @@
 #!/bin/bash
-#export NCBI_API_KEY='<API KEY>'
-#export EMAIL=<email>
+export EMAIL=ard114@case.edu
 lastresult=''
 lastlookup=''
 newColumn=''

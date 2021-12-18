@@ -1,3 +1,4 @@
 myblast/
 input/
 output/
+*.env
