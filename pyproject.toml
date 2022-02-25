@@ -7,8 +7,9 @@ authors = [
 ]
 dependencies = [
     "biopython>=1.75",
+    "scikit-bio @ git+https://github.com/biocore/scikit-bio.git@14acac89515a901d54c3c6900a42157230bc3487",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.8,<3.10"
 license = {text = "Apache-2.0"}
 
 [project.urls]
@@ -16,8 +17,10 @@ homepage = ""
 
 [project.optional-dependencies]
 [tool]
+package-dir = "src"
 [tool.pdm]
 [tool.pdm.dev-dependencies]
+
 test = []
 
 [build-system]

@@ -8,6 +8,7 @@ from collections import Counter
 from pprint import pprint
 from io import StringIO
 from subprocess import run
+import lib.calculate_cons_for_clustal_protein
 #from typing import Literal, Tuple
 #from types import new_class
 from Bio import AlignIO, SeqIO, SeqUtils
@@ -65,6 +66,7 @@ class SpeciesCompare():
             input=combistr,
             check=True
             )
+        clustal = calculate_cons_for_clustal_protein(handler.getvalue)
         alignment = AlignIO.read(StringIO(clustal.stdout), "clustal")
         pairlist = []
         for kndex, letter in enumerate(alignment.column_annotations['clustal_consensus']):
