@@ -209,6 +209,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "parasail"
+version = "1.2.4"
+summary = "pairwise sequence alignment library"
+dependencies = [
+    "numpy",
+]
+
+[[package]]
 name = "parso"
 version = "0.8.3"
 requires_python = ">=3.6"
@@ -292,10 +300,10 @@ dependencies = [
 
 [[package]]
 name = "scikit-bio"
-version = "0.5.7.dev2"
+version = "0.5.7.dev3"
 git = "https://github.com/theAeon/scikit-bio.git"
-ref = "c2715e7a9d81bac63501250dea4edc077722c686"
-revision = "c2715e7a9d81bac63501250dea4edc077722c686"
+ref = "fb88bd5271bdb74dcec4a88709f50525ad26d59b"
+revision = "fb88bd5271bdb74dcec4a88709f50525ad26d59b"
 summary = "Data structures, algorithms and educational resources for bioinformatics."
 dependencies = [
     "CacheControl>=0.11.5",
@@ -379,7 +387,7 @@ summary = "Measures the displayed width of unicode strings in a terminal"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:7a73c2d5e67b28424e316e60d78a6af601504dae2d8b556f1ee0035f6c27a41f"
+content_hash = "sha256:832bd57ab4537967d6b1a4626f6d35ca4ece542791ade6be3c1b601336731801"
 
 [metadata.files]
 "appnope 0.1.2" = [
@@ -672,6 +680,14 @@ content_hash = "sha256:7a73c2d5e67b28424e316e60d78a6af601504dae2d8b556f1ee0035f6
     {file = "pandas-1.4.1-cp39-cp39-win32.whl", hash = "sha256:1d85d5f6be66dfd6d1d8d13b9535e342a2214260f1852654b19fa4d7b8d1218b"},
     {file = "pandas-1.4.1-cp39-cp39-win_amd64.whl", hash = "sha256:3129a35d9dad1d80c234dd78f8f03141b914395d23f97cf92a366dcd19f8f8bf"},
     {file = "pandas-1.4.1.tar.gz", hash = "sha256:8db93ec98ac7cb5f8ac1420c10f5e3c43533153f253fe7fb6d891cf5aa2b80d2"},
+]
+"parasail 1.2.4" = [
+    {file = "parasail-1.2.4-py2.py3-none-macosx_10_9_x86_64.whl", hash = "sha256:35bebac42193a0608fa59a42f34a3b393010d4d425a0c40a7bf3419ea7a0b2fe"},
+    {file = "parasail-1.2.4-py2.py3-none-manylinux2010_i686.whl", hash = "sha256:fd940a737507e1980d3c08982f0c3aef084515c059daff39e1ebd370db2f5fa3"},
+    {file = "parasail-1.2.4-py2.py3-none-manylinux2010_x86_64.whl", hash = "sha256:37d17536b37886dcf87883f56c04ff614fec780e111db5a0cedd791c586ef252"},
+    {file = "parasail-1.2.4-py2.py3-none-win32.whl", hash = "sha256:500a181b5c8f96083423913efdb3070fde7ca8e1bb2de222d03e2ef1c37bec2c"},
+    {file = "parasail-1.2.4-py2.py3-none-win_amd64.whl", hash = "sha256:5324e87262ae456a5c7165394734eda60f9b8927eb4bf6b88f6fe5f55c404e66"},
+    {file = "parasail-1.2.4.tar.gz", hash = "sha256:8e6e0762924a461bb437cbb71122765c6912dace880e338bd19c7f9d12efead2"},
 ]
 "parso 0.8.3" = [
     {file = "parso-0.8.3-py2.py3-none-any.whl", hash = "sha256:c001d4636cd3aecdaf33cbb40aebb59b094be2a74c556778ef5576c175e19e75"},
