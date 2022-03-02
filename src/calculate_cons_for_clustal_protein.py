@@ -447,8 +447,11 @@ def calculate_cons_for_clustal_protein(
 
     out_alignment_name = generate_output_file_name(
         file_name, suffix_for_saving)
-    # prepare output file for saving so it will be open and ready
-    with open(out_alignment_name, 'w') as output_file:
+    #-------------------------------------------------------
+    # patch to return output as StringIO
+    from io import StringIO
+    output_file = StringIO()
+    #-------------------------------------------------------
 
     # read in the alignment file line by line
     for line in alignment.split("\n"):
@@ -463,7 +466,7 @@ def calculate_cons_for_clustal_protein(
             output_file.write((" " * seq_index)+next(chunk)+"\n")
         else:
             output_file.write(line.strip()+"\n")
-
+    return(output_file)
     # Feedback
     sys.stderr.write("\n\nAlignment with conservation indication symbols added "
                      "saved as '{}'.".format(out_alignment_name))
