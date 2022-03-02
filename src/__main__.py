@@ -6,12 +6,15 @@ from argparse import ArgumentParser
 from os import get_terminal_size
 from collections import Counter
 from pprint import pprint
-from io import StringIO
+from io import StringIO, TextIOWrapper
 from subprocess import run
-import lib.calculate_cons_for_clustal_protein
+import calculate_cons_for_clustal_protein as cons
+from skbio.alignment.parasail import global_pairwise_align_protein as gpap
+from skbio.alignment.parasail import SubstitutionMatrix
+from skbio import Protein
 #from typing import Literal, Tuple
 #from types import new_class
-from Bio import AlignIO, SeqIO, SeqUtils
+from Bio import AlignIO, SeqIO, SeqUtils, Align
 #AminoAcid = Literal["A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y", "-"]
 #Clustal = Literal['','.',':','*']
 #SeqClass=new_class(SeqRecord)
@@ -58,16 +61,17 @@ class SpeciesCompare():
         self.seqidlist=list(self.seq_ids)
         self.seqnamelist=list(self.seqnames)
     def getpairlist(self, i: int):
-        combistr = format(self.seqnamelist[i], "fasta") + format(self.seqidlist[i], "fasta")
-        clustal = run(
-            ["muscle", "-quiet", "-clwstrict", "-maxiters", "1", "-diags", "-sv", "-distance1", "kbit20_3"],
-            capture_output=True,
-            text=True,
-            input=combistr,
-            check=True
-            )
-        clustal = calculate_cons_for_clustal_protein(handler.getvalue)
-        alignment = AlignIO.read(StringIO(clustal.stdout), "clustal")
+        seqnameprot = Protein(str(self.seqnamelist[i].seq))
+        seqidprot = Protein(str(self.seqidlist[i].seq))
+        alignment = gpap(
+            seqnameprot, seqidprot, substitution_matrix=SubstitutionMatrix.from_name("blosum90"))
+        msa = alignment[0]
+        handler = StringIO()
+        _ = msa.write(handler, format='clustal')
+        print(_.getvalue())
+        clustal = cons.calculate_cons_for_clustal_protein(_.getvalue())
+
+        alignment = AlignIO.read(StringIO(clustal.getvalue()), "clustal")
         pairlist = []
         for kndex, letter in enumerate(alignment.column_annotations['clustal_consensus']):
             name1=self.seqnamelist[i].description
@@ -111,7 +115,8 @@ if parsed.compare_combined:
         flat=[item for sublist in testAll for item in sublist]
         dictA=transform(flat,2)
         dictB=transform(flat,3)
-        filename=comparator.rsplit('/',1)[1]
+        filename=comparator
+        #filename=comparator.rsplit('/',1)[1]
         headerA = filename.split('v')[0] ##this is imprecise and probably a bug waiting to explode
         headerB = filename.split('v')[1]
         format_print(dictA, dictB, headerA, headerB, "Printing amino-acid differences for all proteins combined:")
