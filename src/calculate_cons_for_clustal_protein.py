@@ -282,7 +282,7 @@ def calculate_cons_for_clustal_protein(
         # `with open` because it seems `with open` method is incompatible with
         # use of StringIO, I think, which I usually use to try to pass things
         # associated with file methods string. (I qualifed it with 'I think' b/c
-        # questions on stackoverlflow seemed to agree but I didn't try every
+        # questions  on stackoverlflow seemed to agree but I didn't try every
         # possibility because realized this would probably be a better way to
         # handle anyway.) That TypeError except got me to the next issue which
         # was trying the string as a file name and getting it was too long, and
@@ -301,6 +301,7 @@ def calculate_cons_for_clustal_protein(
     #---------------------------------------------------------------------------
     first_words = []
     first_id_needed = True
+    last_id_needed = True
     for line in alignment.split("\n"):
         if line.strip():
             first_word = line.split()[0]
@@ -323,9 +324,15 @@ def calculate_cons_for_clustal_protein(
                     # https://stackoverflow.com/a/30418498/8508004, to work in
                     # 2.7 and 3
                     last_identifier = first_words[-2]
+                    last_id_needed = False
                     break  # because have gone far enough to collect the identifiers
             else:
                 first_words.append(first_word)
+    if last_id_needed == True:
+        the_count = Counter(first_words)
+        aln_ids = [k for k, v in the_count.items() if v >
+                   1]  # based
+        last_identifier= first_words[-1]
     # feedback
     sys.stderr.write(
         "top line identifier determined as '{}'...".format(first_identifier))
@@ -334,7 +341,6 @@ def calculate_cons_for_clustal_protein(
     sys.stderr.write(
         "bottom line identifier determined as '{}'."
         "..".format(last_identifier))
-
     # Go through multiple sequence alignment file parsing it as needed to
     # accumulate full alignment for each sequence identifier code.
     # Since collected identifiers above, can use them.
@@ -444,19 +450,19 @@ def calculate_cons_for_clustal_protein(
     # prepare output file for saving so it will be open and ready
     with open(out_alignment_name, 'w') as output_file:
 
-        # read in the alignment file line by line
-        for line in alignment.split("\n"):
-            if line.strip().startswith(last_identifier):
-                # After line with last_identifier written to new file, add the
-                # next chunk of conservation to insert conservation indicator
-                # lines into MSA in output.
-                output_file.write(line.strip()+"\n")
-                # determine index of sequence
-                seq = line.strip().split()[1].strip()
-                seq_index = line.strip().index(seq)
-                output_file.write((" " * seq_index)+next(chunk)+"\n")
-            else:
-                output_file.write(line.strip()+"\n")
+    # read in the alignment file line by line
+    for line in alignment.split("\n"):
+        if line.strip().startswith(last_identifier):
+            # After line with last_identifier written to new file, add the
+            # next chunk of conservation to insert conservation indicator
+            # lines into MSA in output.
+            output_file.write(line.strip()+"\n")
+            # determine index of sequence
+            seq = line.strip().split()[1].strip()
+            seq_index = line.strip().index(seq)
+            output_file.write((" " * seq_index)+next(chunk)+"\n")
+        else:
+            output_file.write(line.strip()+"\n")
 
     # Feedback
     sys.stderr.write("\n\nAlignment with conservation indication symbols added "
