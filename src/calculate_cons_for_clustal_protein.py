@@ -308,7 +308,7 @@ def calculate_cons_for_clustal_protein(
             if first_word in first_words:
                 if first_id_needed:
                     first_identifier = first_word
-                    sys.stderr.write("Alignment file read...")
+                    #sys.stderr.write("Alignment file read...")
                     first_id_needed = False
                 first_words.append(first_word)
                 if any_first_words_occur_three_times(first_words):
@@ -334,13 +334,13 @@ def calculate_cons_for_clustal_protein(
                    1]  # based
         last_identifier= first_words[-1]
     # feedback
-    sys.stderr.write(
-        "top line identifier determined as '{}'...".format(first_identifier))
+    #sys.stderr.write(
+    #    "top line identifier determined as '{}'...".format(first_identifier))
     # NOTE WILL GET `UnboundLocalError: local variable 'first_identifier'
     # referenced before assignment` if no alignment/file present!!!!
-    sys.stderr.write(
-        "bottom line identifier determined as '{}'."
-        "..".format(last_identifier))
+    #sys.stderr.write(
+    #    "bottom line identifier determined as '{}'."
+    #    "..".format(last_identifier))
     # Go through multiple sequence alignment file parsing it as needed to
     # accumulate full alignment for each sequence identifier code.
     # Since collected identifiers above, can use them.
@@ -375,8 +375,8 @@ def calculate_cons_for_clustal_protein(
                       for k, v in alignment_dict.items()}
 
     # feedback
-    sys.stderr.write(
-        "\nindividual lines for each sequence identifier parsed...")
+    #sys.stderr.write(
+    #    "\nindividual lines for each sequence identifier parsed...")
 
     # sanity check
     # Verify that alignments are equal in length
@@ -397,7 +397,7 @@ def calculate_cons_for_clustal_protein(
     # `majority` will simply be what is the majority at that position and later
     # be used in another script, i.e., my pretty msa maker one, for determining
     # if nucleotides represented as bold.
-    sys.stderr.write("determining conservation of aligned sequences...")
+    #sys.stderr.write("determining conservation of aligned sequences...")
     conservation_line = ""
     majority = ""
     for indx, nt in enumerate(alignment_dict[aln_ids[0]]):
@@ -445,8 +445,8 @@ def calculate_cons_for_clustal_protein(
     #print (list2text(chunks_for_conservation))
     chunk = iter(chunks_for_conservation)
 
-    out_alignment_name = generate_output_file_name(
-        file_name, suffix_for_saving)
+    #out_alignment_name = generate_output_file_name(
+    #    file_name, suffix_for_saving)
     #-------------------------------------------------------
     # patch to return output as StringIO
     from io import StringIO
@@ -459,6 +459,7 @@ def calculate_cons_for_clustal_protein(
             # After line with last_identifier written to new file, add the
             # next chunk of conservation to insert conservation indicator
             # lines into MSA in output.
+
             output_file.write(line.strip()+"\n")
             # determine index of sequence
             seq = line.strip().split()[1].strip()
@@ -468,9 +469,9 @@ def calculate_cons_for_clustal_protein(
             output_file.write(line.strip()+"\n")
     return(output_file)
     # Feedback
-    sys.stderr.write("\n\nAlignment with conservation indication symbols added "
-                     "saved as '{}'.".format(out_alignment_name))
-    sys.stderr.write("\nFinished.\n")
+    #sys.stderr.write("\n\nAlignment with conservation indication symbols added "
+    #                 "saved as '{}'.".format(out_alignment_name))
+    #sys.stderr.write("\nFinished.\n")
 
 
 ###--------------------------END OF MAIN FUNCTION----------------------------###
@@ -479,7 +480,7 @@ def calculate_cons_for_clustal_protein(
 
 #*******************************************************************************
 ###------------------------'main' section of script---------------------------##
-def main():
+#def main():
     """ Main entry point of the script """
     # placing actual main action in a 'helper'script so can call that easily
     # with a distinguishing name in Jupyter notebooks, where `main()` may get
@@ -495,7 +496,7 @@ def main():
     # related help). Makes it easy to add more later.
 
 
-if __name__ == "__main__" and '__file__' in globals():
+#if __name__ == "__main__" and '__file__' in globals():
     """ This is executed when run from the command line """
     # Code with just `if __name__ == "__main__":` alone will be run if pasted
     # into a notebook. The addition of ` and '__file__' in globals()` is based

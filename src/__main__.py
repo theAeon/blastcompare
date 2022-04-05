@@ -3,18 +3,21 @@ Developed against Python 3.9.7, BioPython 1.78, and NumPy 1.19.5
 Tested with Muscle v3.8.1551.
 """
 from argparse import ArgumentParser
-from os import get_terminal_size
 from collections import Counter
+from io import StringIO
+from os import get_terminal_size
 from pprint import pprint
-from io import StringIO, TextIOWrapper
-from subprocess import run
-import calculate_cons_for_clustal_protein as cons
-from skbio_parasail import global_pairwise_align_protein as gpap
-from skbio_parasail import SubstitutionMatrix
-from skbio import Protein
+
 #from typing import Literal, Tuple
 #from types import new_class
-from Bio import AlignIO, SeqIO, SeqUtils, Align
+from Bio import AlignIO, SeqIO, SeqUtils
+from skbio import Protein
+from skbio_parasail import SubstitutionMatrix
+from skbio_parasail import global_pairwise_align_protein as gpap
+
+import calculate_cons_for_clustal_protein as cons
+
+
 #AminoAcid = Literal["A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y", "-"]
 #Clustal = Literal['','.',':','*']
 #SeqClass=new_class(SeqRecord)
@@ -68,7 +71,6 @@ class SpeciesCompare():
         msa = alignment[0]
         handler = StringIO()
         _ = msa.write(handler, format='clustal')
-        print(_.getvalue())
         clustal = cons.calculate_cons_for_clustal_protein(_.getvalue())
 
         alignment = AlignIO.read(StringIO(clustal.getvalue()), "clustal")
