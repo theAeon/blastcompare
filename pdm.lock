@@ -251,6 +251,11 @@ requires_python = ">=3.7"
 summary = "Python Imaging Library (Fork)"
 
 [[package]]
+name = "plac"
+version = "1.3.5"
+summary = "The smartest command line arguments parser in the world"
+
+[[package]]
 name = "prompt-toolkit"
 version = "3.0.29"
 requires_python = ">=3.6.2"
@@ -329,7 +334,7 @@ dependencies = [
 
 [[package]]
 name = "scikit-bio-parasail"
-version = "0.0.2"
+version = "0.0.3"
 requires_python = ">=3.8,<3.11"
 summary = "UNKNOWN"
 dependencies = [
@@ -405,7 +410,7 @@ summary = "Measures the displayed width of unicode strings in a terminal"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:b2dc7195f308b36836372ff5d32da8c7d475f6f47d8153bab2c8870e9bf0a280"
+content_hash = "sha256:44d582a1c3f303d23aca317d9aa213b20e45976c31798853a19abfa7f6d88ede"
 
 [metadata.files]
 "appnope 0.1.3" = [
@@ -777,6 +782,10 @@ content_hash = "sha256:b2dc7195f308b36836372ff5d32da8c7d475f6f47d8153bab2c8870e9
     {file = "Pillow-9.1.0-pp38-pypy38_pp73-win_amd64.whl", hash = "sha256:8d79c6f468215d1a8415aa53d9868a6b40c4682165b8cb62a221b1baa47db458"},
     {file = "Pillow-9.1.0.tar.gz", hash = "sha256:f401ed2bbb155e1ade150ccc63db1a4f6c1909d3d378f7d1235a44e90d75fb97"},
 ]
+"plac 1.3.5" = [
+    {file = "plac-1.3.5-py2.py3-none-any.whl", hash = "sha256:a8933d21a40fe2cec177a2f96217425a4e889d275aa3e25ecf9a9640ab16d416"},
+    {file = "plac-1.3.5.tar.gz", hash = "sha256:38bdd864d0450fb748193aa817b9c458a8f5319fbf97b2261151cfc0a5812090"},
+]
 "prompt-toolkit 3.0.29" = [
     {file = "prompt_toolkit-3.0.29-py3-none-any.whl", hash = "sha256:62291dad495e665fca0bda814e342c69952086afb0f4094d0893d357e5c78752"},
     {file = "prompt_toolkit-3.0.29.tar.gz", hash = "sha256:bd640f60e8cecd74f0dc249713d433ace2ddc62b65ee07f96d358e0b152b6ea7"},
@@ -812,9 +821,9 @@ content_hash = "sha256:b2dc7195f308b36836372ff5d32da8c7d475f6f47d8153bab2c8870e9
 "scikit-bio 0.5.7" = [
     {file = "scikit-bio-0.5.7.tar.gz", hash = "sha256:6343ca0c621e2fcc5d1c042c8be3200664c5325956a83bea751cf1bcc75d1da9"},
 ]
-"scikit-bio-parasail 0.0.2" = [
-    {file = "scikit_bio_parasail-0.0.2-py3-none-any.whl", hash = "sha256:195319f31fa303c23e1d783be0de3be9e6ecef29d4ada58c2cfcfee2f42105a6"},
-    {file = "scikit-bio-parasail-0.0.2.tar.gz", hash = "sha256:efa14ab15e84036ff7add1b06e0662b99cb3dc4b7d7f712cee12c6e44645e9ce"},
+"scikit-bio-parasail 0.0.3" = [
+    {file = "scikit_bio_parasail-0.0.3-py3-none-any.whl", hash = "sha256:a251ed693fd201d12ae039bbaf7ff42eae04eced82dc0fada6a586a87971fe3e"},
+    {file = "scikit-bio-parasail-0.0.3.tar.gz", hash = "sha256:d10f43c9626fd7f0d175cad10eff9e241bccfb1647a05073564c31a4f1b0cc85"},
 ]
 "scikit-learn 1.0.2" = [
     {file = "scikit_learn-1.0.2-cp310-cp310-macosx_10_13_x86_64.whl", hash = "sha256:da3c84694ff693b5b3194d8752ccf935a665b8b5edc33a283122f4273ca3e687"},
