@@ -2,7 +2,8 @@
 Developed against Python 3.9.7, BioPython 1.78, and NumPy 1.19.5
 Tested with Muscle v3.8.1551.
 """
-from argparse import ArgumentParser
+import plac
+#from argparse import ArgumentParser
 from collections import Counter
 from io import StringIO
 from os import get_terminal_size
@@ -41,22 +42,6 @@ def transform(p_list, pos: int) -> dict:
     return three_counter
 
 
-parser = ArgumentParser(prog="get_diff",
-description="a script that takes paired fasta sequences from two species and returns count of mismatched AAs"
-                        )
-subcommand = parser.add_mutually_exclusive_group(required=True)
-subcommand.add_argument("--compare-combined", action="store_true", help="compare all proteins")
-subcommand.add_argument("--compare-protein", action="store", type=int, help="index of protein to compare", metavar='i', nargs="?")
-parser.add_argument("in_species", action="extend", nargs="+", help="species base used as input for getPairs.sh")
-parser.add_argument("-a, --all", action="store_true", dest="all")
-parser.add_argument("-p, --pipe", action="store_true", dest="pipe")
-parsed = parser.parse_args()
-if not parsed.pipe:
-    term_sized = get_terminal_size()
-    term_size = term_sized.columns
-else: 
-    term_size= 80
-
 class SpeciesCompare():
     def __init__(self,base: str) -> None:
         self.seq_ids=SeqIO.parse("%sbestIDs.fsa"  % (base), "fasta")
@@ -85,40 +70,67 @@ class SpeciesCompare():
             if diff != "*":
                 pairlist.append((loc, diff, base1, base2, name1, name2))
         return pairlist
-if parsed.compare_protein:
-    local = SpeciesCompare(parsed.in_species[0])
-    REMAINING = 0
-    parseList = []
-    if parsed.all:
-        REMAINING = len(local.seqidlist) - 1
-        while REMAINING >1:
-            parseList.append(local.getpairlist(REMAINING))
-            REMAINING -= 1
-    else:
-        parseList.append(local.getpairlist(parsed.compare_protein-1))
-    for parse in parseList:
-        if parse != []:
-            transA=transform(parse, 2)
-            transB=transform(parse, 3)
-            headA=parse[0][4]
-            headB=parse[0][5]
-            format_print(transA, transB, headA, headB, "")
 
-        
+def compared(input):
+    local = SpeciesCompare(input)
+    testAll=[local.getpairlist(i-1) for i in range(len(local.seqidlist)+1)]
+    flat=[item for sublist in testAll for item in sublist]
+    dictA=transform(flat,2)
+    dictB=transform(flat,3)
+    filename=input
+    #filename=comparator.rsplit('/',1)[1]
+    headerA = filename.split('v')[0] ##this is imprecise and probably a bug waiting to explode
+    headerB = filename.split('v')[1]
+    format_print(dictA, dictB, headerA, headerB, "Printing amino-acid differences for all proteins combined:")
 
+def per(input, index, all):
+        local = SpeciesCompare(input)
+        REMAINING = 0
+        parseList = []
+        if all:
+            REMAINING = len(local.seqidlist) - 1
+            while REMAINING >1:
+                parseList.append(local.getpairlist(REMAINING))
+                REMAINING -= 1
+        else:
+            parseList.append(local.getpairlist(index-1))
+        for parse in parseList:
+            if parse != []:
+                transA=transform(parse, 2)
+                transB=transform(parse, 3)
+                headA=parse[0][4]
+                headB=parse[0][5]
+                format_print(transA, transB, headA, headB, "")
 
+commands = 'combinedCompare', 'perProtein'
 
+@plac.pos(input=('NamevID'))
+def combinedCompare(input):
+    "Compare amino acids across all proteins in paired name/ID FASTAs"
+    return(compared(input))
 
-if parsed.compare_combined:
-    listComparisons: list[SpeciesCompare] = []
-    for comparator in parsed.in_species:
-        local = SpeciesCompare(comparator)
-        testAll=[local.getpairlist(i-1) for i in range(len(local.seqidlist)+1)]
-        flat=[item for sublist in testAll for item in sublist]
-        dictA=transform(flat,2)
-        dictB=transform(flat,3)
-        filename=comparator
-        #filename=comparator.rsplit('/',1)[1]
-        headerA = filename.split('v')[0] ##this is imprecise and probably a bug waiting to explode
-        headerB = filename.split('v')[1]
-        format_print(dictA, dictB, headerA, headerB, "Printing amino-acid differences for all proteins combined:")
+@plac.annotations(input=('NamevID', 'positional'),
+                  index=('protein index', 'positional'),
+                  all=('iterate through all', 'flag', 'a'))
+def perProtein(input: str, index: int, all: bool):
+    "Compare amino acids for specific protein"
+    return(per(input, index, all))
+
+def __missing__(name):
+    return ('Unknown option: %r' % name)
+
+def __exit__(etype, exc, tb):
+    "Will be called automatically at the end of the interpreter loop"
+    if etype in (None, GeneratorExit):
+        print('ok')
+
+main = __import__(__name__)
+if __name__ == '__main__':  
+    try:
+        term_sized = get_terminal_size()
+        term_size = term_sized.columns
+    except: 
+        term_size= 80
+
+    for out in plac.call(main):
+        print(out)
