@@ -7,8 +7,7 @@ authors = [
 ]
 dependencies = [
     "biopython>=1.75",
-    "scikit-bio @ git+https://github.com/theAeon/scikit-bio.git@fb88bd5271bdb74dcec4a88709f50525ad26d59b",
-    "parasail>=1.2.4",
+    "scikit-bio-parasail>=0.0.2",
 ]
 requires-python = ">=3.8,<3.11"
 license = {text = "Apache-2.0"}

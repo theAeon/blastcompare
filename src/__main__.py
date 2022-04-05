@@ -9,8 +9,8 @@ from pprint import pprint
 from io import StringIO, TextIOWrapper
 from subprocess import run
 import calculate_cons_for_clustal_protein as cons
-from skbio.alignment.parasail import global_pairwise_align_protein as gpap
-from skbio.alignment.parasail import SubstitutionMatrix
+from skbio_parasail import global_pairwise_align_protein as gpap
+from skbio_parasail import SubstitutionMatrix
 from skbio import Protein
 #from typing import Literal, Tuple
 #from types import new_class
