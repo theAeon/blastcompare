@@ -104,7 +104,7 @@ def per(input, index, all):
 
 commands = 'combinedCompare', 'perProtein'
 
-@plac.pos(input=('NamevID'))
+@plac.annotations(input=('NamevID', 'positional'))
 def combinedCompare(input):
     "Compare amino acids across all proteins in paired name/ID FASTAs"
     return(compared(input))
