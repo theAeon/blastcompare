@@ -132,5 +132,4 @@ if __name__ == '__main__':
     except: 
         term_size= 80
 
-    for out in plac.call(main):
-        print(out)
+    plac.call(main)
