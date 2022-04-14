@@ -89,6 +89,7 @@ def compared(input, same):
     render.renderCount(dictA, dictB, headerA, headerB)
 
 def per(input, index, all):
+        index = int(index)
         local = SpeciesCompare(input)
         REMAINING = 0
         parseList = []
@@ -106,6 +107,7 @@ def per(input, index, all):
                 headA=parse[0][4]
                 headB=parse[0][5]
                 format_print(transA, transB, headA, headB, "")
+                render.renderCount(transA, transB, str(headA), str(headB))
 
 commands = 'combinedCompare', 'perProtein'
 
