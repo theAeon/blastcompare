@@ -17,6 +17,7 @@ from skbio_parasail import SubstitutionMatrix
 from skbio_parasail import global_pairwise_align_protein as gpap
 
 import calculate_cons_for_clustal_protein as cons
+import render
 
 
 #AminoAcid = Literal["A","C","D","E","F","G","H","I","K","L","M","N","P","Q","R","S","T","V","W","Y", "-"]
@@ -67,21 +68,25 @@ class SpeciesCompare():
             base2 = alignment[1, kndex]
             diff = letter
             loc = kndex
-            if diff != "*":
-                pairlist.append((loc, diff, base1, base2, name1, name2))
+            pairlist.append((loc, diff, base1, base2, name1, name2))
         return pairlist
 
-def compared(input):
+def compared(input, same):
     local = SpeciesCompare(input)
     testAll=[local.getpairlist(i-1) for i in range(len(local.seqidlist)+1)]
-    flat=[item for sublist in testAll for item in sublist]
+    if same:
+        flat=[item for sublist in testAll for item in sublist if item[1] == '*']
+    else:
+        flat = [item for sublist in testAll for item in sublist if item[1] != '*']
+
     dictA=transform(flat,2)
     dictB=transform(flat,3)
     filename=input
     #filename=comparator.rsplit('/',1)[1]
     headerA = filename.split('v')[0] ##this is imprecise and probably a bug waiting to explode
     headerB = filename.split('v')[1]
-    format_print(dictA, dictB, headerA, headerB, "Printing amino-acid differences for all proteins combined:")
+    format_print(dictA, dictB, headerA, headerB, "Printing amino-acids for all proteins combined:")
+    render.renderCount(dictA, dictB, headerA, headerB)
 
 def per(input, index, all):
         local = SpeciesCompare(input)
@@ -104,10 +109,11 @@ def per(input, index, all):
 
 commands = 'combinedCompare', 'perProtein'
 
-@plac.annotations(input=('NamevID', 'positional'))
-def combinedCompare(input):
+@plac.annotations(input=('NamevID', 'positional'),
+                  same=('match', 'flag', 'm'))
+def combinedCompare(input: str, same: bool):
     "Compare amino acids across all proteins in paired name/ID FASTAs"
-    return(compared(input))
+    return(compared(input, same))
 
 @plac.annotations(input=('NamevID', 'positional'),
                   index=('protein index', 'positional'),
