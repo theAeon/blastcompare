@@ -10,3 +10,13 @@ def renderCount(dict1: dict, dict2: dict, header1: str, header2: str):
     dataframe = dataframe.melt(id_vars=['Species'], var_name="Amino Acid", value_name="Residues")
     catplot(kind="bar", data=dataframe, hue='Species', y="Residues", x="Amino Acid")
     show()
+
+def renderSingle(dict: dict, header: str):
+    dataframe = DataFrame.from_records([dict])
+    dataframe.insert(loc=0, column="Species", value=[header])
+    dataframe = dataframe.drop(columns=["GAP"])
+    dataframe = dataframe.melt(
+        id_vars=['Species'], var_name="Amino Acid", value_name="Residues")
+    catplot(kind="point", data=dataframe, hue='Species',
+            y="Residues", x="Amino Acid")
+    show()

@@ -88,7 +88,7 @@ def compared(input, same):
     format_print(dictA, dictB, headerA, headerB, "Printing amino-acids for all proteins combined:")
     render.renderCount(dictA, dictB, headerA, headerB)
 
-def per(input, index, all):
+def per(input, index, all, residuals):
         index = int(index)
         local = SpeciesCompare(input)
         REMAINING = 0
@@ -106,8 +106,12 @@ def per(input, index, all):
                 transB=transform(parse, 3)
                 headA=parse[0][4]
                 headB=parse[0][5]
-                format_print(transA, transB, headA, headB, "")
-                render.renderCount(transA, transB, str(headA), str(headB))
+                if residuals:
+                    netDict = {k:(v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
+                    render.renderSingle(netDict, headA + '\n' + headB)
+                else:
+                    format_print(transA, transB, headA, headB, "")
+                    render.renderCount(transA, transB, str(headA), str(headB))
 
 commands = 'combinedCompare', 'perProtein'
 
@@ -119,10 +123,11 @@ def combinedCompare(input: str, same: bool):
 
 @plac.annotations(input=('NamevID', 'positional'),
                   index=('protein index', 'positional'),
-                  all=('iterate through all', 'flag', 'a'))
-def perProtein(input: str, index: int, all: bool):
+                  all=('iterate through all', 'flag', 'a'),
+                  residuals=('print protein net difference', 'flag', 'r'))
+def perProtein(input: str, index: int, all: bool, residuals: bool):
     "Compare amino acids for specific protein"
-    return(per(input, index, all))
+    return(per(input, index, all, residuals))
 
 def __missing__(name):
     return ('Unknown option: %r' % name)
