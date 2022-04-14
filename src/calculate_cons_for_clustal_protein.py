@@ -2,6 +2,7 @@
 # calculate_cons_for_clustal_protein.py
 from collections import Counter
 import os
+from re import L
 import sys
 __author__ = "Wayne Decatur"  # fomightez on GitHub
 __license__ = "MIT"
@@ -302,37 +303,41 @@ def calculate_cons_for_clustal_protein(
     first_words = []
     first_id_needed = True
     last_id_needed = True
-    for line in alignment.split("\n"):
-        if line.strip():
-            first_word = line.split()[0]
-            if first_word in first_words:
-                if first_id_needed:
-                    first_identifier = first_word
-                    #sys.stderr.write("Alignment file read...")
-                    first_id_needed = False
-                first_words.append(first_word)
-                if any_first_words_occur_three_times(first_words):
-                    # want to collect those that occur at least two times
-                    # because if an identifier has occured three times, than
-                    # others should number as two and don't want anything
-                    # occurring less since usually there is a header line in
-                    # Clustal alignments describing source (and/or version)
-                    the_count = Counter(first_words)
-                    aln_ids = [k for k, v in the_count.items() if v >
-                               1]  # based
-                    # on https://stackoverflow.com/a/26773120/8508004 and
-                    # https://stackoverflow.com/a/30418498/8508004, to work in
-                    # 2.7 and 3
-                    last_identifier = first_words[-2]
-                    last_id_needed = False
-                    break  # because have gone far enough to collect the identifiers
-            else:
-                first_words.append(first_word)
-    if last_id_needed == True:
-        the_count = Counter(first_words)
-        aln_ids = [k for k, v in the_count.items() if v >
-                   1]  # based
-        last_identifier= first_words[-1]
+    if len(l := [line.strip() for line in alignment.split("\n") if line.strip() != ""]) == 3:
+        for line in l:
+            first_words.append(line.split()[0])
+        aln_ids = first_words[1:]  # based
+        last_identifier = first_words[-1]
+    else:
+        for line in alignment.split("\n"):
+            if line.strip():
+                first_word = line.split()[0]
+                if first_word in first_words:
+                    if first_id_needed:
+                        first_identifier = first_word
+                        #sys.stderr.write("Alignment file read...")
+                        first_id_needed = False
+                    first_words.append(first_word)
+                    if any_first_words_occur_three_times(first_words):
+                        # want to collect those that occur at least two times
+                        # because if an identifier has occured three times, than
+                        # others should number as two and don't want anything
+                        # occurring less since usually there is a header line in
+                        # Clustal alignments describing source (and/or version)
+                        the_count = Counter(first_words)
+                        aln_ids = [k for k, v in the_count.items() if v >1]  # based
+                        # on https://stackoverflow.com/a/26773120/8508004 and
+                        # https://stackoverflow.com/a/30418498/8508004, to work in
+                        # 2.7 and 3
+                        last_identifier = first_words[-2]
+                        last_id_needed = False
+                        break  # because have gone far enough to collect the identifiers
+                else:
+                    first_words.append(first_word)
+        if last_id_needed == True:
+            the_count = Counter(first_words)
+            aln_ids = [k for k, v in the_count.items() if v >1]  # based
+            last_identifier= first_words[-1]
     # feedback
     #sys.stderr.write(
     #    "top line identifier determined as '{}'...".format(first_identifier))
