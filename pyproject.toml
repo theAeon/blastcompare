@@ -7,11 +7,10 @@ authors = [
 ]
 dependencies = [
     "biopython>=1.75",
-    "scikit-bio-parasail>=0.0.2",
+    "scikit-bio-parasail>=0.0.3",
     "plac>=1.3.5",
-    "joypy>=0.2.6",
     "seaborn>=0.11.2"]
-requires-python = ">=3.8,<3.11"
+requires-python = ">=3.9,<3.11"
 license = {text = "Apache-2.0"}
 
 [project.urls]
