@@ -8,6 +8,7 @@ from collections import Counter
 from io import StringIO
 from os import get_terminal_size
 from pprint import pprint
+from matplotlib.pyplot import show
 
 #from typing import Literal, Tuple
 #from types import new_class
@@ -93,9 +94,10 @@ def per(input, index, all, residuals):
         local = SpeciesCompare(input)
         REMAINING = 0
         parseList = []
+        renderList = []
         if all:
             REMAINING = len(local.seqidlist) - 1
-            while REMAINING >1:
+            while REMAINING >=1:
                 parseList.append(local.getpairlist(REMAINING))
                 REMAINING -= 1
         else:
@@ -107,11 +109,24 @@ def per(input, index, all, residuals):
                 headA=parse[0][4]
                 headB=parse[0][5]
                 if residuals:
-                    netDict = {k:(v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
-                    render.renderSingle(netDict, headA + '\n' + headB)
+                    if all:
+                        
+                        netDict = {
+                            k: (v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
+                        renderList.append((netDict, headA + '\n' + headB))
+                        
+                    else:
+                        netDict = {k:(v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
+                        render.renderSingle(netDict, headA + '\n' + headB)
+                        show()
+
                 else:
                     format_print(transA, transB, headA, headB, "")
                     render.renderCount(transA, transB, str(headA), str(headB))
+        if renderList != []:
+            render.rendermulti(renderList)
+            show()
+
 
 commands = 'combinedCompare', 'perProtein'
 
