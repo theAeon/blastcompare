@@ -124,7 +124,8 @@ def per(input, index, all, residuals):
                     format_print(transA, transB, headA, headB, "")
                     render.renderCount(transA, transB, str(headA), str(headB))
         if renderList != []:
-            render.rendermulti(renderList)
+            figIns = render.heatmapper(renderList)
+            figIns.rendermulti()
             show()
 
 
