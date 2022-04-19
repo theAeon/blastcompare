@@ -10,8 +10,10 @@ dependencies = [
     "scikit-bio-parasail>=0.0.3",
     "plac>=1.3.5",
     "seaborn>=0.11.2",
+    "mpl-interactions>=0.21.0",
+    "plottify>=1.1",
 ]
-requires-python = ">=3.9,<3.11"
+requires-python = ">=3.8,<3.11"
 license = {text = "Apache-2.0"}
 
 [project.urls]
@@ -25,6 +27,27 @@ package-dir = "src"
 [tool.pdm]
 allow_prereleases = false
 [tool.pdm.dev-dependencies]
+dev = [
+    "nox>=2022.1.7",
+    "flakeheaven>=0.11.1",
+    "mypy>=0.942",
+    "flake8-comprehensions>=3.8.0",
+    "pandas-vet>=0.2.3",
+    "flake8-import-order>=0.18.1",
+    "flake8-annotations>=2.9.0",
+    "flake8-type-checking>=1.5.0",
+]
+[tool.flakeheaven]
+format = "grouped"
+max_line_length = 120
+show_source = true 
+[tool.flakeheaven.plugins]
+pyflakes = ["+*"]
+pycodestyle = ["+*"]
+[tool.flakeheaven.exceptions."__pypackages__/"]
+pyflakes = ["-*"]
+pycodestyle = ["-*"]
+
 [build-system]
 requires = ["pdm-pep517"]
 build-backend = "pdm.pep517.api"
