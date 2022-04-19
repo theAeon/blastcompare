@@ -9,13 +9,17 @@ dependencies = [
     "biopython>=1.75",
     "scikit-bio-parasail>=0.0.3",
     "plac>=1.3.5",
-    "seaborn>=0.11.2"]
+    "seaborn>=0.11.2",
+]
 requires-python = ">=3.9,<3.11"
 license = {text = "Apache-2.0"}
 
 [project.urls]
 homepage = ""
 [project.optional-dependencies]
+graphics = [
+    "pyside6>=6.3.0",
+]
 [tool]
 package-dir = "src"
 [tool.pdm]

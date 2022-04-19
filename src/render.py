@@ -1,5 +1,4 @@
 from typing import Tuple
-from joypy import joyplot
 from matplotlib.pyplot import show
 from seaborn import catplot, pointplot, countplot, barplot, heatmap
 from pandas import DataFrame, concat
