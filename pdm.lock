@@ -181,6 +181,16 @@ requires_python = ">=3.7"
 summary = "Tools to manipulate font files"
 
 [[package]]
+name = "grid-strategy"
+version = "0.0.1"
+requires_python = ">=3.6"
+summary = "A package for organizing matplotlib plots."
+dependencies = [
+    "matplotlib",
+    "numpy",
+]
+
+[[package]]
 name = "h5py"
 version = "3.6.0"
 requires_python = ">=3.7"
@@ -673,7 +683,7 @@ summary = "Measures the displayed width of unicode strings in a terminal"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:79d956d55aa730fb40608409d7d21d55c65f2c52a247acd5c49433f18bf1c9ee"
+content_hash = "sha256:6a2b20f2d5c3d4637ed8b7f6311a9cc89dd874866be4336caf409e2d277ce5c8"
 
 [metadata.files]
 "appnope 0.1.3" = [
@@ -833,6 +843,10 @@ content_hash = "sha256:79d956d55aa730fb40608409d7d21d55c65f2c52a247acd5c49433f18
 "fonttools 4.32.0" = [
     {file = "fonttools-4.32.0-py3-none-any.whl", hash = "sha256:b038d1a0dee0079de7ade57071e2e2aced6e35bd697de244ac62938b2b1628c1"},
     {file = "fonttools-4.32.0.zip", hash = "sha256:59a90de72149893167e3d552ae2402c6874e006b9adc3feaf5f6d706fe20d392"},
+]
+"grid-strategy 0.0.1" = [
+    {file = "grid_strategy-0.0.1-py3-none-any.whl", hash = "sha256:43c74e3394798dc136b8d0c2c98e2fa62467c8289751f4ef4b7c37a2475bd2f5"},
+    {file = "grid-strategy-0.0.1.tar.gz", hash = "sha256:d8db1c12e6f33eb55ba56a5b19f4848aae862a9a343fea422a353c46ab6ccc23"},
 ]
 "h5py 3.6.0" = [
     {file = "h5py-3.6.0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:a5320837c60870911645e9a935099bdb2be6a786fcf0dac5c860f3b679e2de55"},

@@ -9,7 +9,7 @@ from typing import cast, Iterable, Literal, NamedTuple
 from Bio import AlignIO, SeqIO, SeqUtils
 from Bio.Data import IUPACData
 
-from matplotlib.pyplot import show
+from matplotlib.pyplot import show, close, autoscale
 from Bio.Align import MultipleSeqAlignment
 
 import plac
@@ -159,7 +159,7 @@ def per(inputa, index, all_, residuals, returnList=False):
     if returnList:
         return renderList
     if renderList != []:
-        figIns = render.heatmapper(renderList)
+        figIns = render.singleheatmapper(renderList)
         figIns.rendermulti()
         show()
 
@@ -182,13 +182,19 @@ def perProtein(infile: str, index: int, all_: bool, residuals: bool):
     "Compare amino acids for specific protein"
     return(per(infile, index, all_, residuals))
 
-@plac.annotations(infiles=('multi NamevID', 'positional'))
-
-def multiChart(infiles: str):
+@plac.annotations(infiles=('multi NamevID', 'positional', None, str))
+def multiChart(*infiles: str):
     '''like perProtein -r -a, across multiple files'''
     presublist = []
-    for nvi in infiles.split():
+    for nvi in infiles:
         presublist.append(per(nvi, 2, True, True, True))
+    multimapper = render.multiheatmapper(presublist)
+    for i in range(len(presublist)):
+        multimapper.seltmp(i)
+        multimapper.rendermulti()
+    close(2)
+    autoscale(True, 'both', True)
+    show()
 
 def __missing__(name):
     return ('Unknown option: %r' % name)

@@ -41,12 +41,11 @@ def renderSingle(dicta: dict, header: str) -> axes.Axes:
 
 class heatmapper():
     renderTuple: list[tuple[dict, str]]
-
-    def __init__(self, renderTup):
-        self.dfcol = concat([singleFrame(d, s) for d, s in renderTup])
-        self.combi = self.dfcol.pivot(
-            "Species", "Amino Acid", "Residues")
-        self.figtmp, self.axitmp = pyplot.subplots(figsize=(9, 6))
+    
+    def __init__(self):
+        self.combi = None
+        self.axitmp = None
+        self.figtmp = pyplot.figure()
         self.evnum = self.figtmp.canvas.mpl_connect(
             'button_press_event', self.onclick)
 
@@ -60,3 +59,35 @@ class heatmapper():
                event.x, event.y, event.xdata, event.ydata))
         print(self.combi.iloc[floor(event.ydata)])
         
+
+class singleheatmapper(heatmapper):
+    def __init__(self, renderTup):
+        super().__init__()
+        dfcol = concat([singleFrame(d, s) for d, s in renderTup])
+        self.combi = dfcol.pivot(
+            "Species", "Amino Acid", "Residues")
+        self.figtmp, self.axitmp = pyplot.subplots(figsize=(9, 6))
+
+
+class multiheatmapper(heatmapper):
+    def __init__(self, listRenderTup):
+        super().__init__()
+        strat = strategies.RectangularStrategy()
+        spec = strat.get_grid(len(listRenderTup))
+        self.listtup = listRenderTup
+        self.listsub = []
+        self.combilist = []
+        for i, tup in enumerate(self.listtup):
+            pyplot.figure(1)
+            self.listsub.append(pyplot.subplot(spec[i]))
+            dftmp = concat([singleFrame(d, s) for d, s in tup])
+            self.combilist.append(dftmp.pivot(
+            "Species", "Amino Acid", "Residues"))
+        self.axitmp = None
+        self.combi = None
+
+    def seltmp(self, i):
+        self.axitmp = self.listsub[i]
+        self.combi = self.combilist[i]
+
+
