@@ -24,7 +24,7 @@ import render
 
 clust = Literal[' ', '', '.', ':', '*']
 AminoAcid = Literal['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L', 'M', 
-                    'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'Y', '-', 'X'] 
+                    'N', 'P', 'Q', 'R', 'S', 'T', 'W', 'Y', '-', 'B', 'X', 'Z', 'J', 'U', 'O'] 
 
 
 class BasePair(NamedTuple):
@@ -90,9 +90,9 @@ class SpeciesCompare():
             try:
                 assert diffa in [' ', '', '.', ':', '*'], diffa
                 diff = cast(clust, diffa)
-                assert base1a in IUPACData.protein_letters + '-' + 'X', base1a
+                assert base1a in IUPACData.extended_protein_letters + '-' + 'X', base1a
                 base1 = cast(AminoAcid, base1a)
-                assert base2a in IUPACData.protein_letters + '-' + 'X', base2a
+                assert base2a in IUPACData.extended_protein_letters + '-' + 'X', base2a
                 base2 = cast(AminoAcid, base2a)
                 name1 = cast(str, name1a)
                 name2 = cast(str, name2a)
@@ -123,7 +123,7 @@ def compared(inputa, same):
     render.renderCount(dictA, dictB, headerA, headerB)
 
 
-def per(inputa, index, all_, residuals):
+def per(inputa, index, all_, residuals, returnList=False):
     index = int(index)
     local = SpeciesCompare(inputa)
     REMAINING = 0
@@ -156,13 +156,15 @@ def per(inputa, index, all_, residuals):
             else:
                 format_print(transA, transB, headA, headB, "")
                 render.renderCount(transA, transB, str(headA), str(headB))
+    if returnList:
+        return renderList
     if renderList != []:
         figIns = render.heatmapper(renderList)
         figIns.rendermulti()
         show()
 
 
-commands = 'combinedCompare', 'perProtein'
+commands = 'combinedCompare', 'perProtein', 'multiChart'
 
 
 @plac.annotations(infile=('NamevID', 'positional'),
@@ -180,6 +182,13 @@ def perProtein(infile: str, index: int, all_: bool, residuals: bool):
     "Compare amino acids for specific protein"
     return(per(infile, index, all_, residuals))
 
+@plac.annotations(infiles=('multi NamevID', 'positional'))
+
+def multiChart(infiles: str):
+    '''like perProtein -r -a, across multiple files'''
+    presublist = []
+    for nvi in infiles.split():
+        presublist.append(per(nvi, 2, True, True, True))
 
 def __missing__(name):
     return ('Unknown option: %r' % name)
