@@ -423,16 +423,6 @@ requires_python = ">=3.7"
 summary = "A small Python module for determining appropriate platform-specific dirs, e.g. a \"user data dir\"."
 
 [[package]]
-name = "plottify"
-version = "1.1"
-requires_python = ">=3.6"
-summary = "Plottify"
-dependencies = [
-    "matplotlib",
-    "numpy",
-]
-
-[[package]]
 name = "prompt-toolkit"
 version = "3.0.29"
 requires_python = ">=3.6.2"
@@ -683,7 +673,7 @@ summary = "Measures the displayed width of unicode strings in a terminal"
 
 [metadata]
 lock_version = "3.1"
-content_hash = "sha256:6a2b20f2d5c3d4637ed8b7f6311a9cc89dd874866be4336caf409e2d277ce5c8"
+content_hash = "sha256:a46b727ae3b4b5a4f303b2b1c2d7de9fd75c2f201ec3d1df914ecfef41443abd"
 
 [metadata.files]
 "appnope 0.1.3" = [
@@ -1177,9 +1167,6 @@ content_hash = "sha256:6a2b20f2d5c3d4637ed8b7f6311a9cc89dd874866be4336caf409e2d2
 "platformdirs 2.5.2" = [
     {file = "platformdirs-2.5.2-py3-none-any.whl", hash = "sha256:027d8e83a2d7de06bbac4e5ef7e023c02b863d7ea5d079477e722bb41ab25788"},
     {file = "platformdirs-2.5.2.tar.gz", hash = "sha256:58c8abb07dcb441e6ee4b11d8df0ac856038f944ab98b7be6b27b2a3c7feef19"},
-]
-"plottify 1.1" = [
-    {file = "plottify-1.1.tar.gz", hash = "sha256:2cdfca749bfbbe4876a626a654f9ef63b20cc17b22e916b00a373aea03d4b8e6"},
 ]
 "prompt-toolkit 3.0.29" = [
     {file = "prompt_toolkit-3.0.29-py3-none-any.whl", hash = "sha256:62291dad495e665fca0bda814e342c69952086afb0f4094d0893d357e5c78752"},

@@ -146,7 +146,7 @@ def per(inputa, index, all_, residuals, returnList=False):
                 if all_:
 
                     netDict = {
-                        k: (v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
+                        k: abs(v - transB[k] if k in transB.keys() else v) for k, v in transA.items()}
                     renderList.append((netDict, headA + '\n' + headB))
 
                 else:
@@ -186,12 +186,14 @@ def perProtein(infile: str, index: int, all_: bool, residuals: bool):
 def multiChart(*infiles: str):
     '''like perProtein -r -a, across multiple files'''
     presublist = []
+    namelist = []
     for nvi in infiles:
         presublist.append(per(nvi, 2, True, True, True))
-    multimapper = render.multiheatmapper(presublist)
+        namelist.append(nvi)
+    multimapper = render.multiheatmapper(presublist, namelist)
     for i in range(len(presublist)):
         multimapper.seltmp(i)
-        multimapper.rendermulti()
+        multimapper.rendermulti(cbar=True if i + 1 == len(presublist) else False)
     close(2)
     autoscale(True, 'both', True)
     show()

@@ -1,6 +1,6 @@
 from math import floor
 from matplotlib.pyplot import show
-from seaborn import catplot, pointplot, heatmap
+from seaborn import catplot, pointplot, heatmap, light_palette
 from pandas import DataFrame, concat
 from matplotlib import pyplot, axes
 from grid_strategy import strategies
@@ -45,12 +45,15 @@ class heatmapper():
     def __init__(self):
         self.combi = None
         self.axitmp = None
-        self.figtmp = pyplot.figure()
+        self.figtmp = pyplot.figure(figsize=(17.5, 10.25), layout='tight')
+        self.colors = None
         self.evnum = self.figtmp.canvas.mpl_connect(
             'button_press_event', self.onclick)
 
-    def rendermulti(self):
-        heatmap(self.combi, ax=self.axitmp, yticklabels=False)
+    def rendermulti(self, cbar=True, vmin=None, vmax=None, center=None, cmap=None):
+        heatmap(self.combi, ax=self.axitmp, yticklabels=False, cbar=cbar,
+                vmin=vmin, vmax=vmax, center=center,
+                cbar_kws={'use_gridspec': True}, cmap=cmap)
         print(self.combi)
 
     def onclick(self, event):
@@ -58,7 +61,6 @@ class heatmapper():
               ('double' if event.dblclick else 'single', event.button,
                event.x, event.y, event.xdata, event.ydata))
         print(self.combi.iloc[floor(event.ydata)])
-        
 
 class singleheatmapper(heatmapper):
     def __init__(self, renderTup):
@@ -69,25 +71,52 @@ class singleheatmapper(heatmapper):
         self.figtmp, self.axitmp = pyplot.subplots(figsize=(9, 6))
 
 
+
 class multiheatmapper(heatmapper):
-    def __init__(self, listRenderTup):
+    def __init__(self, listRenderTup, namelist):
         super().__init__()
         strat = strategies.RectangularStrategy()
-        spec = strat.get_grid(len(listRenderTup))
+        self.spec = strat.get_grid(len(listRenderTup))
         self.listtup = listRenderTup
+        self.namelist = namelist
         self.listsub = []
         self.combilist = []
+        self.localmin = 0
+        self.localmax = 0
+        fig = pyplot.figure(1)
         for i, tup in enumerate(self.listtup):
-            pyplot.figure(1)
-            self.listsub.append(pyplot.subplot(spec[i]))
+            self.listsub.append(pyplot.subplot(self.spec[i]))
             dftmp = concat([singleFrame(d, s) for d, s in tup])
             self.combilist.append(dftmp.pivot(
             "Species", "Amino Acid", "Residues"))
+            num = self.combilist[i].drop(columns=["Val"])
+            mi = min(num.min())
+            ma = max(num.max())
+            self.localmin = mi if mi < self.localmin else self.localmin
+            self.localmax = ma if ma > self.localmax else self.localmax
         self.axitmp = None
         self.combi = None
+        self.namesel = None
+        fig.canvas.mpl_connect('axes_enter_event', self.enter_axes)
+        
 
     def seltmp(self, i):
         self.axitmp = self.listsub[i]
         self.combi = self.combilist[i]
+        self.namesel = self.namelist[i]
 
-
+    def rendermulti(self, cbar=True, vmax=None, vmin=None, ax=None):
+        vmax = self.localmax if vmax is None else vmax
+        vmin = self.localmin if vmin is None else vmin
+        ax = self.axitmp if ax is None else ax
+        center = vmin + 85
+        cmap = light_palette('red', n_colors=256, as_cmap=True)
+        self.axitmp.title.set_text(self.namesel)
+        return super().rendermulti(center=center, vmin=vmin, vmax=vmax, cbar=cbar, cmap=cmap)
+    
+    def enter_axes(self, event):
+        print('enter_axes', event.inaxes)
+        for i, ax in enumerate(self.listsub):
+            if ax.in_axes(event):
+                self.seltmp(i)
+                print(i)
