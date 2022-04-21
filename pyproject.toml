@@ -1,6 +1,6 @@
 [project]
 name = "blastcompare"
-version = "0.0.1-pre"
+version = "0.0.1"
 description = "comparing amino acids between pre-aligned seqenes"
 authors = [
     {name = "Andrew Robbins", email = "ard114@case.edu"},
