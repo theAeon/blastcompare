@@ -2,7 +2,7 @@ from math import floor
 from matplotlib.pyplot import show
 from seaborn import catplot, pointplot, heatmap, light_palette
 from pandas import DataFrame, concat
-from matplotlib import pyplot, axes
+from matplotlib import pyplot, axes, patches
 from grid_strategy import strategies
 
 
@@ -57,10 +57,16 @@ class heatmapper():
         print(self.combi)
 
     def onclick(self, event):
+      with pyplot.ion():
         print('%s click: button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %
               ('double' if event.dblclick else 'single', event.button,
                event.x, event.y, event.xdata, event.ydata))
-        print(self.combi.iloc[floor(event.ydata)])
+        btmp = self.combi.iloc[floor(event.ydata)]
+        strtmp = btmp.name
+        patch = patches.Patch(label=strtmp, ec='black', color='red', in_layout=False, clip_on=True, figure=self.figtmp)
+        leg = pyplot.figlegend(loc=4, handles=[patch])
+        pyplot.pause(.3)
+        leg.set(visible=False)
 
 class singleheatmapper(heatmapper):
     def __init__(self, renderTup):
@@ -73,6 +79,7 @@ class singleheatmapper(heatmapper):
 
 
 class multiheatmapper(heatmapper):
+
     def __init__(self, listRenderTup, namelist):
         super().__init__()
         strat = strategies.RectangularStrategy()
@@ -98,6 +105,7 @@ class multiheatmapper(heatmapper):
         self.combi = None
         self.namesel = None
         fig.canvas.mpl_connect('axes_enter_event', self.enter_axes)
+
         
 
     def seltmp(self, i):

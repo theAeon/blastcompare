@@ -9,7 +9,7 @@ from typing import cast, Iterable, Literal, NamedTuple
 from Bio import AlignIO, SeqIO, SeqUtils
 from Bio.Data import IUPACData
 
-from matplotlib.pyplot import show, close, autoscale
+from matplotlib.pyplot import show, close, autoscale, ion
 from Bio.Align import MultipleSeqAlignment
 
 import plac
@@ -196,7 +196,7 @@ def multiChart(*infiles: str):
         multimapper.rendermulti(cbar=True if i + 1 == len(presublist) else False)
     close(2)
     autoscale(True, 'both', True)
-    show()
+    show(block=True)
 
 def __missing__(name):
     return ('Unknown option: %r' % name)
