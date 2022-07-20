@@ -1,9 +1,9 @@
 [project]
 name = "blastcompare"
-version = "0.0.1"
+version = "0.0.2"
 description = "comparing amino acids between pre-aligned seqenes"
 authors = [
-    {name = "Andrew Robbins", email = "ard114@case.edu"},
+    {name = "Andrew Robbins", email = "andrew@robbinsa.me"},
 ]
 dependencies = [
     "biopython>=1.75",
@@ -19,6 +19,9 @@ homepage = ""
 [project.optional-dependencies]
 graphics = [
     "pyside6>=6.3.0",
+]
+parse = [
+    "pyyaml>=6.0",
 ]
 [tool]
 package-dir = "src"
