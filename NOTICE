@@ -1,20 +1,14 @@
 This project could not have been completed without the tools and data provided by the following:
 
-W Shen, S Le, Y Li*, F Hu*. SeqKit: a cross-platform and ultrafast toolkit for FASTA/Q file manipulation. 
-PLOS ONE. doi:10.1371/journal.pone.0163962.
+Camacho, C., Coulouris, G., Avagyan, V., Ma, N., Papadopoulos, J., Bealer, K., & Madden, T. L. (2009). BLAST+: Architecture and applications. BMC Bioinformatics, 10(1), 421. https://doi.org/10.1186/1471-2105-10-421
+Cock, P. J. A., Antao, T., Chang, J. T., Chapman, B. A., Cox, C. J., Dalke, A., Friedberg, I., Hamelryck, T., Kauff, F., Wilczynski, B., & de Hoon, M. J. L. (2009). Biopython: Freely available Python tools for computational molecular biology and bioinformatics. Bioinformatics, 25(11), 1422–1423. https://doi.org/10.1093/bioinformatics/btp163
+Daily, J. (2016). Parasail: SIMD C library for global, semi-global, and local pairwise sequence alignments. BMC Bioinformatics, 17(1), 81. https://doi.org/10.1186/s12859-016-0930-z
+Hunter, J. D. (2007). Matplotlib: A 2D graphics environment. Computing in Science & Engineering, 9(3), 90–95. https://doi.org/10.1109/MCSE.2007.55
+McKinney, W. (2010). Data Structures for Statistical Computing in Python. In S. van der Walt & J. Millman (Eds.), Proceedings of the 9th Python in Science Conference (pp. 56–61). https://doi.org/10.25080/Majora-92bf1922-00a
+Reback, J., jbrockmendel, McKinney, W., Bossche, J. V. den, Augspurger, T., Roeschke, M., Hawkins, S., Cloud, P., gfyoung, Sinhrks, Hoefler, P., Klein, A., Petersen, T., Tratner, J., She, C., Ayd, W., Naveh, S., Darbyshire, J. H. M., Garcia, M., … Battiston, P. (2022). pandas-dev/pandas: Pandas 1.4.2 (v1.4.2) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.6408044
+Sayers, E. W., Bolton, E. E., Brister, J. R., Canese, K., Chan, J., Comeau, D. C., Connor, R., Funk, K., Kelly, C., Kim, S., Madej, T., Marchler-Bauer, A., Lanczycki, C., Lathrop, S., Lu, Z., Thibaud-Nissen, F., Murphy, T., Phan, L., Skripchenko, Y., … Sherry, S. T. (2022). Database resources of the national center for biotechnology information. Nucleic Acids Research, 50(D1), D20–D26. https://doi.org/10.1093/nar/gkab1112
+Shen, W., Le, S., Li, Y., & Hu, F. (2016). SeqKit: A Cross-Platform and Ultrafast Toolkit for FASTA/Q File Manipulation. PLOS ONE, 11(10), e0163962. https://doi.org/10.1371/journal.pone.0163962
+Waskom, M. L. (2021). seaborn: Statistical data visualization. Journal of Open Source Software, 6(60), 3021. https://doi.org/10.21105/joss.03021
 
-Robert C. Edgar, MUSCLE: multiple sequence alignment with high accuracy and high throughput,
-Nucleic Acids Research, Volume 32, Issue 5, 1 March 2004, Pages 1792–1797,
-https://doi.org/10.1093/nar/gkh340
-
-Camacho, C., Coulouris, G., Avagyan, V. et al. BLAST+: architecture and applications.
-BMC Bioinformatics 10, 421 (2009). https://doi.org/10.1186/1471-2105-10-421
-
-Kans J. Entrez Direct: E-utilities on the Unix Command Line. 2013 Apr 23 [Updated 2021 Nov 1].
-In: Entrez Programming Utilities Help [Internet]. Bethesda (MD): National Center for Biotechnology Information (US); 2010-.
-Available from: https://www.ncbi.nlm.nih.gov/books/NBK179288/
-
-Cock, P.J.A. et al. Biopython: freely available Python tools for computational molecular biology and bioinformatics.
-Bioinformatics 2009 Jun 1; 25(11) 1422-3 https://doi.org/10.1093/bioinformatics/btp163 pmid:19304878
 
 This will be updated when/if preprint citation is available.
