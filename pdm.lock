@@ -375,6 +375,7 @@ summary = "Powerful data structures for data analysis, time series, and statisti
 dependencies = [
     "numpy>=1.20.3; python_version < \"3.10\"",
     "numpy>=1.21.0; python_version >= \"3.10\"",
+    "numpy>=1.23.2; python_version >= \"3.11\"",
     "python-dateutil>=2.8.1",
     "pytz>=2020.1",
 ]
@@ -559,9 +560,9 @@ dependencies = [
 
 [[package]]
 name = "scikit-bio-parasail"
-version = "0.0.3"
-requires_python = ">=3.8,<3.11"
-summary = "UNKNOWN"
+version = "0.0.4"
+requires_python = ">=3.8,<3.12"
+summary = ""
 dependencies = [
     "parasail>=1.2.4",
     "scikit-bio>=0.5.7",
@@ -681,7 +682,7 @@ summary = "Measures the displayed width of unicode strings in a terminal"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:e627385f45079cc8a6fc5d7c7c3067637380ac3e529498629abd5e6592d50777"
+content_hash = "sha256:a099732b7020f04a064e1009fc325b9870034911d82309d0cf4c538165bf8845"
 
 [metadata.files]
 "appnope 0.1.3" = [
@@ -1459,9 +1460,9 @@ content_hash = "sha256:e627385f45079cc8a6fc5d7c7c3067637380ac3e529498629abd5e659
 "scikit-bio 0.5.7" = [
     {url = "https://files.pythonhosted.org/packages/8c/a4/6ec875ba9a56f7705529aecc745ca3eaee6d90b87cd103281be7a032b412/scikit-bio-0.5.7.tar.gz", hash = "sha256:6343ca0c621e2fcc5d1c042c8be3200664c5325956a83bea751cf1bcc75d1da9"},
 ]
-"scikit-bio-parasail 0.0.3" = [
-    {url = "https://files.pythonhosted.org/packages/d8/e6/af2e3b37b233e7047058f4e9adba4f873b3a2605d4b2b7416dc45388b9b2/scikit-bio-parasail-0.0.3.tar.gz", hash = "sha256:d10f43c9626fd7f0d175cad10eff9e241bccfb1647a05073564c31a4f1b0cc85"},
-    {url = "https://files.pythonhosted.org/packages/f9/18/e05421410aacb4856fb10d5c27d75132d0e9e53a815fd49d642d9c922024/scikit_bio_parasail-0.0.3-py3-none-any.whl", hash = "sha256:a251ed693fd201d12ae039bbaf7ff42eae04eced82dc0fada6a586a87971fe3e"},
+"scikit-bio-parasail 0.0.4" = [
+    {url = "https://files.pythonhosted.org/packages/23/09/6a52ebb9c8f927b6affa076c317878a6c37843af52bac38d54b04e9bdbb9/scikit_bio_parasail-0.0.4-py3-none-any.whl", hash = "sha256:17126ebdb0d33f293dffd6b34eaa506c530cd2dbcb12f3a8e329dda7c7fc2780"},
+    {url = "https://files.pythonhosted.org/packages/84/14/9c8b952bffad7af85157885e1cc44e8e0e88ac7de0b919a3582ec0427328/scikit-bio-parasail-0.0.4.tar.gz", hash = "sha256:e02b0d9706c8c42a8dd20351c0e1eba0943d2495c654389fced105d9e8aa2b62"},
 ]
 "scikit-learn 1.2.0" = [
     {url = "https://files.pythonhosted.org/packages/08/b4/c122c0e7225e438ff64867e5c9eb8ec246dcd2bfe5435a9a2adb3f7e160e/scikit_learn-1.2.0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:5546a8894a0616e92489ef995b39a0715829f3df96e801bb55cbf196be0d9649"},
