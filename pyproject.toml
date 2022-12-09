@@ -27,6 +27,10 @@ parse = [
 package-dir = "src"
 [tool.pdm]
 allow_prereleases = false
+[tool.pdm.version]
+source = "scm"
+write_to = "blastcompare/__version__.py"
+write_template = "__version__ = '{}'"
 [tool.pdm.dev-dependencies]
 dev = [
     "nox>=2022.1.7",
